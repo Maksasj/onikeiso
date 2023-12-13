@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "onikeiso.h": "c",
+    "gtest.h": "c"
+  }
+}

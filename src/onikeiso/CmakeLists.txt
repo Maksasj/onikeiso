@@ -1,1 +1,11 @@
-add_library(onikeiso STATIC onikeiso.c)
+# onikeiso target
+FILE(GLOB SRC_FILES *.c)
+add_library(onikeiso STATIC ${SRC_FILES})
+
+# onikeiso_tests target
+FILE(GLOB TEST_FILES *.test.c)
+add_executable(onikeiso_tests ${TEST_FILES})
+target_link_libraries(onikeiso_tests GTest::gtest GTest::gtest_main onikeiso)
+target_include_directories(onikeiso_tests PUBLIC "${CMAKE_SOURCE_DIR}/src/onikeiso")
+include(GoogleTest)
+gtest_discover_tests(onikeiso_tests)
