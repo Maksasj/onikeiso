@@ -3,7 +3,7 @@ project(onikeiso)
 
 enable_testing()
 
-include_directories(Unity/src)
-add_subdirectory(Unity)
+include_directories(3rdparty/Unity/src)
+add_subdirectory(3rdparty/Unity)
 
 add_subdirectory(src)
