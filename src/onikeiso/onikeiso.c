@@ -1,4 +1,5 @@
 #include "onikeiso.h"
+
 #include <stdlib.h>
 
 void make_input_pins(Pin *pins, size_t size) {
