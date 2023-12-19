@@ -7,3 +7,4 @@ include_directories(3rdparty/Unity/src)
 add_subdirectory(3rdparty/Unity)
 
 add_subdirectory(src)
+add_subdirectory(tests)
