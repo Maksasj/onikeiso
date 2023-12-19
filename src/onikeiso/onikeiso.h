@@ -32,6 +32,12 @@ void make_not_gate(Gate *gate);
 
 void make_identity_gate(Gate *gate);
 
+void make_and_gate(Gate *gate);
+void make_nand_gate(Gate *gate);
+
+void make_or_gate(Gate *gate);
+void make_nor_gate(Gate *gate);
+
 void free_gate(Gate *gate);
 
 void propagate(Gate *gate);
