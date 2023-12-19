@@ -30,6 +30,8 @@ struct Gate {
 
 void make_not_gate(Gate *gate);
 
+void make_identity_gate(Gate *gate);
+
 void free_gate(Gate *gate);
 
 void propagate(Gate *gate);

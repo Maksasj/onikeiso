@@ -15,6 +15,10 @@ void update_not_gate(Gate *self) {
     self->outputs[0].value = !self->inputs[0].value;
 }
 
+void update_identity_gate(Gate *self) {
+    self->outputs[0].value = self->inputs[0].value;
+}
+
 void make_not_gate(Gate *gate) {
     gate->inputs = malloc(1 * sizeof(Pin));
     gate->outputs = malloc(1 * sizeof(Pin));
@@ -22,6 +26,11 @@ void make_not_gate(Gate *gate) {
     make_input_pin(&gate->inputs[0]);
     make_output_pin(&gate->outputs[0]);
     gate->update = &update_not_gate;
+}
+
+void make_identity_gate(Gate *gate) {
+    make_not_gate(gate);
+    gate->update = update_identity_gate;
 }
 
 void free_gate(Gate *gate) {
