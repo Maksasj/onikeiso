@@ -4,11 +4,11 @@
 typedef struct Queue {
     void** items;
 
-    int max_capacity;
+    int capacity;
     int stored;
 } Queue;
 
-void create_queue(Queue* queue, int max_capacity);
+void create_queue(Queue* queue, int initial_capacity);
 
 void queue_push(Queue* queue, void* item);
 
@@ -18,7 +18,11 @@ int queue_empty(Queue* queue);
 
 int queue_size(Queue* queue);
 
+int queue_capacity(Queue* queue);
+
 void free_queue(Queue* queue);
+
+void free_queue_content(Queue* queue);
 
 /*
 Queue queue;

@@ -16,8 +16,8 @@ void queue_create_test(void) {
 
     create_queue(&queue, 1024);
 
-    TEST_ASSERT_EQUAL(queue.stored, 0);
-    TEST_ASSERT_EQUAL(queue.max_capacity, 1024);
+    TEST_ASSERT_EQUAL(queue_size(&queue), 0);
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 1024);
 
     free_queue(&queue);
 }
@@ -72,14 +72,13 @@ void queue_pop_test(void) {
     TEST_ASSERT_EQUAL(0, queue_empty(&queue));
 
     for(int i = 0; i < 60; ++i) {
-        void* item = queue_pop(&queue);
-
-        free(item);
+        queue_pop(&queue);
     }
 
     TEST_ASSERT_EQUAL(0, queue_size(&queue));
     TEST_ASSERT_EQUAL(1, queue_empty(&queue));
 
+    free_queue_content(&queue);
     free_queue(&queue);
 }
 
@@ -94,14 +93,93 @@ void queue_store_test(void) {
         queue_push(&queue, item);
     }
 
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 1024);
+
     for(int i = 99; i >= 0; --i) {
         int* item = (int*) queue_pop(&queue);
 
         TEST_ASSERT_EQUAL(*item, i);
-
-        free(item);
     }
 
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 16);
+
+    free_queue_content(&queue);
+    free_queue(&queue);
+}
+
+void queue_huge_store_test(void) {
+    Queue queue;
+
+    create_queue(&queue, 100);
+
+    for(int i = 0; i < 1000; ++i) {
+        int* item = (int*) malloc(sizeof(int));
+        *item = i;
+        queue_push(&queue, item);
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 1600);
+
+    for(int i = 999; i >= 0; --i) {
+        int* item = (int*) queue_pop(&queue);
+
+        TEST_ASSERT_EQUAL(*item, i);
+
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 12);
+
+    free_queue_content(&queue);
+    free_queue(&queue);
+}
+
+void queue_colossal_store_test(void) {
+    Queue queue;
+
+    create_queue(&queue, 10);
+
+    for(int i = 0; i < 1000000; ++i) {
+        int* item = (int*) malloc(sizeof(int));
+        *item = i;
+        queue_push(&queue, item);
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 1310720);
+
+    for(int i = 999999; i >= 0; --i) {
+        int* item = (int*) queue_pop(&queue);
+
+        TEST_ASSERT_EQUAL(*item, i);
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 20);
+
+    free_queue_content(&queue);
+    free_queue(&queue);
+}
+
+void queue_little_store_test(void) {
+    Queue queue;
+
+    create_queue(&queue, 1);
+
+    for(int i = 0; i < 2; ++i) {
+        int* item = (int*) malloc(sizeof(int));
+        *item = i;
+        queue_push(&queue, item);
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 2);
+
+    for(int i = 1; i >= 0; --i) {
+        int* item = (int*) queue_pop(&queue);
+
+        TEST_ASSERT_EQUAL(*item, i);
+    }
+
+    TEST_ASSERT_EQUAL(queue_capacity(&queue), 2);
+
+    free_queue_content(&queue);
     free_queue(&queue);
 }
 
@@ -112,6 +190,11 @@ int main(void) {
     RUN_TEST(queue_push_test);
     RUN_TEST(queue_pop_test);
     RUN_TEST(queue_store_test);
+
+    RUN_TEST(queue_little_store_test);
+
+    RUN_TEST(queue_huge_store_test);
+    RUN_TEST(queue_colossal_store_test);
 
     return UNITY_END();
 }
