@@ -1,7 +1,7 @@
 #ifndef ONIKEISO_H
 #define ONIKEISO_H
 
-#include "stdbool.h"
+#include "queue.h"
 
 typedef enum {
     TRUE,

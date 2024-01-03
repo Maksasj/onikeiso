@@ -119,11 +119,13 @@ void nor_gate_test(void) {
 
 int main(void) {
     UNITY_BEGIN();
+
     RUN_TEST(not_gate_test);
     RUN_TEST(identity_gate_test);
     RUN_TEST(and_gate_test);
     RUN_TEST(nand_gate_test);
     RUN_TEST(or_gate_test);
     RUN_TEST(nor_gate_test);
+
     return UNITY_END();
 }
