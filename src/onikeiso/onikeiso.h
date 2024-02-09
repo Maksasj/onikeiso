@@ -15,16 +15,22 @@ typedef enum {
     OUTPUT
 } PinType;
 
-typedef struct {
+typedef struct Gate Gate;
+
+typedef struct Pin Pin;
+
+struct Pin {
     PinValue value;
     PinType type;
-} Pin;
-
-typedef struct Gate Gate;
+    Gate *self;
+    Pin *target;
+};
 
 struct Gate {
     Pin *inputs;
+    size_t inputs_count;
     Pin *outputs;
+    size_t outputs_count;
     void (*update)(Gate* self);
 };
 
