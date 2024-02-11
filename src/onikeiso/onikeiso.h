@@ -2,15 +2,18 @@
 #define ONIKEISO_H
 
 #include "queue.h"
+#include <stddef.h>
 
-typedef enum {
+typedef enum
+{
     TRUE,
     FALSE,
     UNDEFINED,
     ERROR
 } PinValue;
 
-typedef enum {
+typedef enum
+{
     INPUT,
     OUTPUT
 } PinType;
@@ -19,19 +22,21 @@ typedef struct Gate Gate;
 
 typedef struct Pin Pin;
 
-struct Pin {
+struct Pin
+{
     PinValue value;
     PinType type;
     Gate *self;
     Pin *target;
 };
 
-struct Gate {
+struct Gate
+{
     Pin *inputs;
     size_t inputs_count;
     Pin *outputs;
     size_t outputs_count;
-    void (*update)(Gate* self);
+    void (*update)(Gate *self);
 };
 
 void make_not_gate(Gate *gate);
