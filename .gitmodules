@@ -1,3 +1,6 @@
 [submodule "3rdparty/Unity"]
 	path = 3rdparty/Unity
 	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "3rdparty/bebone"]
+	path = 3rdparty/bebone
+	url = https://github.com/Maksasj/bebone.git
