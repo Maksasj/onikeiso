@@ -1,15 +1,14 @@
 #ifndef ONIKEISO_DESKTOP_APP_H
 #define ONIKEISO_DESKTOP_APP_H
 
-#include "onikeiso.h"
-#include "bebone/bebone.h"
+#include "gates/gates.h"
 
 namespace onik {
     class OnikeisoApp {
         private:
             std::shared_ptr<bebone::gfx::Window> window;
 
-            std::vector<std::shared_ptr<Gate>> gates;
+            std::vector<std::shared_ptr<VisualGate>> gates;
 
         public:
             void init();

@@ -31,7 +31,7 @@ namespace onik {
     }
 
     void OnikeisoApp::load() {
-
+        gates.push_back(std::make_shared<NotGate>());
     }
 
     void OnikeisoApp::run() {
@@ -43,7 +43,62 @@ namespace onik {
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            ShowExampleAppCustomNodeGraph(nullptr);
+            ImGui::SetNextWindowSize(ImVec2(700, 600), ImGuiCond_FirstUseEver);
+            if (ImGui::Begin("Example: Custom Node Graph")) {
+                static ImVec2 scrolling = ImVec2(0.0f, 0.0f);
+                static bool showGrid = true;
+
+                // Initialization
+                ImGuiIO& io = ImGui::GetIO();
+
+                ImGui::SameLine();
+                ImGui::BeginGroup();
+
+                // Create our child canvas
+                ImGui::Text("Hold middle mouse button to scroll (%.2f,%.2f)", scrolling.x, scrolling.y);
+                ImGui::SameLine(ImGui::GetWindowWidth() - 100);
+                ImGui::Checkbox("Show grid", &showGrid);
+                ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(1, 1));
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+                ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(60, 60, 70, 200));
+                ImGui::BeginChild("scrolling_region", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove);
+                ImGui::PopStyleVar(); // WindowPadding
+                ImGui::PushItemWidth(120.0f);
+
+                ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+                if (showGrid) {
+                    ImU32 GRID_COLOR = IM_COL32(200, 200, 200, 40);
+                    float GRID_SZ = 64.0f;
+                    ImVec2 win_pos = ImGui::GetCursorScreenPos();
+                    ImVec2 canvas_sz = ImGui::GetWindowSize();
+                    for (float x = fmodf(scrolling.x, GRID_SZ); x < canvas_sz.x; x += GRID_SZ)
+                        drawList->AddLine(ImVec2(x, 0.0f) + win_pos, ImVec2(x, canvas_sz.y) + win_pos, GRID_COLOR);
+                    for (float y = fmodf(scrolling.y, GRID_SZ); y < canvas_sz.y; y += GRID_SZ)
+                        drawList->AddLine(ImVec2(0.0f, y) + win_pos, ImVec2(canvas_sz.x, y) + win_pos, GRID_COLOR);
+                }
+
+                drawList->ChannelsSplit(2);
+                drawList->ChannelsSetCurrent(0);
+
+                const ImVec2 offset = ImGui::GetCursorScreenPos() + scrolling;
+                for(auto& gate : gates) {
+                    gate->draw(drawList, offset);
+                }
+
+                drawList->ChannelsMerge();
+
+                if (ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Middle, 0.0f))
+                    scrolling = scrolling + io.MouseDelta;
+
+                ImGui::PopItemWidth();
+                ImGui::EndChild();
+                ImGui::PopStyleColor();
+                ImGui::PopStyleVar();
+                ImGui::EndGroup();
+
+                ImGui::End();
+            }
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
