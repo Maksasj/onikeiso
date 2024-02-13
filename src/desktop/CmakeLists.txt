@@ -1,0 +1,18 @@
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE release)
+
+FILE(GLOB_RECURSE ONIKEISO_DESKTOP_FILES *.cpp)
+add_executable(onikeiso_desktop ${ONIKEISO_DESKTOP_FILES})
+
+target_link_libraries(onikeiso_desktop onikeiso bebone)
+
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/src/onikeiso")
+
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/src")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/glad/include")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/glfw/include")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/Vulkan-Headers/include")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/omni_types/src")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/stb")
+target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/3rdparty/bebone/3dparty/imgui")
