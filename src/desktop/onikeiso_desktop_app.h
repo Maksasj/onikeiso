@@ -3,6 +3,8 @@
 
 #include "node/nodes.h"
 
+#include "windows/windows.h"
+
 namespace onik {
     class OnikeisoApp {
         private:
@@ -10,12 +12,10 @@ namespace onik {
 
             std::vector<std::shared_ptr<Node>> gates;
 
-            ImVec2 scrolling = ImVec2(0.0f, 0.0f);
-
-            void draw_grid(ImDrawList* drawList);
-            void draw_nodes(ImDrawList* drawList);
-
-            bool showGrid = true;
+            std::shared_ptr<MainDockspaceWindow> mainDockspaceWindow;
+            std::shared_ptr<GateLibraryWindow> gateLibraryWindow;
+            std::shared_ptr<SchemePreviewWindow> schemePreviewWindow;
+            std::shared_ptr<SimulationInfoWindow> simulationInfoWindow;
 
         public:
             void init();
