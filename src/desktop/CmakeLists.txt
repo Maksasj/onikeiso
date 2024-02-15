@@ -5,7 +5,7 @@ set(CMAKE_BUILD_TYPE release)
 FILE(GLOB_RECURSE ONIKEISO_DESKTOP_FILES *.cpp)
 add_executable(onikeiso_desktop ${ONIKEISO_DESKTOP_FILES})
 
-target_link_libraries(onikeiso_desktop onikeiso bebone)
+target_link_libraries(onikeiso_desktop onikeiso bebone omni_types)
 
 target_include_directories(onikeiso_desktop PUBLIC "${CMAKE_SOURCE_DIR}/src/onikeiso")
 
