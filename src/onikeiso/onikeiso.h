@@ -4,12 +4,11 @@
 #include "queue.h"
 #include <stddef.h>
 
-typedef enum
-{
-    TRUE,
-    FALSE,
-    UNDEFINED,
-    ERROR
+typedef enum {
+    TRUE      = 0,
+    FALSE     = 1,
+    UNDEFINED = 2,
+    ERROR     = 3
 } PinValue;
 
 typedef enum

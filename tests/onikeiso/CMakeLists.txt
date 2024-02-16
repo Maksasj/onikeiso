@@ -1,3 +1,5 @@
+enable_testing()
+
 FILE(GLOB GATES_TEST_FILES gates.test.c)
 add_executable(onikeiso_gates_test ${GATES_TEST_FILES})
 target_link_libraries(onikeiso_gates_test unity onikeiso)
