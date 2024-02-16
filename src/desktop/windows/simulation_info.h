@@ -9,21 +9,10 @@ namespace onik {
         private:
 
         public:
-            SimulationInfoWindow() : CommonWindow("Main Dockspace") {
+            SimulationInfoWindow();
+            ~SimulationInfoWindow();
 
-            }
-
-            ~SimulationInfoWindow() override {
-
-            }
-
-            void run() {
-                static bool open = true;
-
-                ImGui::Begin("Simulation Info", &open);
-
-                ImGui::End();
-            }
+            void run();
     };
 }
 

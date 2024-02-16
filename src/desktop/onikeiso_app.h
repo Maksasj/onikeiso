@@ -1,5 +1,5 @@
-#ifndef ONIKEISO_DESKTOP_APP_H
-#define ONIKEISO_DESKTOP_APP_H
+#ifndef ONIKEISO_APP_H
+#define ONIKEISO_APP_H
 
 #include "node/nodes.h"
 

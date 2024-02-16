@@ -1,4 +1,4 @@
-#include "onikeiso_desktop_app.h"
+#include "onikeiso_app.h"
 
 int main() {
     onik::OnikeisoApp app;

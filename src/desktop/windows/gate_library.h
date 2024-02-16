@@ -9,21 +9,10 @@ namespace onik {
         private:
 
         public:
-            GateLibraryWindow() : CommonWindow("Main Dockspace") {
+            GateLibraryWindow();
+            ~GateLibraryWindow() override;
 
-            }
-
-            ~GateLibraryWindow() override {
-
-            }
-
-            void run() {
-                static bool open = true;
-
-                ImGui::Begin("Gate Library", &open);
-
-                ImGui::End();
-            }
+            void run();
     };
 }
 
